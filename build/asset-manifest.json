@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0a461457.css",
+    "main.js": "/static/js/main.732bee43.js",
+    "static/media/laxmi.png": "/static/media/laxmi.72e7a1a4f35ae8df1106.png",
+    "static/media/Tudu.png": "/static/media/Tudu.758e0258d83c55da26e7.png",
+    "static/media/Dhe.png": "/static/media/Dhe.2016da662890f8083100.png",
+    "static/media/vb-itr.png": "/static/media/vb-itr.28c378d9e7c3ee06a0f2.png",
+    "static/media/viksit_india.png": "/static/media/viksit_india.a63f0c22f59a3ad788bc.png",
+    "static/media/poojawala.png": "/static/media/poojawala.ea5a273060b316662f21.png",
+    "static/media/sarvatr.png": "/static/media/sarvatr.ab52f1e612b1939ed121.png",
+    "static/media/VidyaBharti.png": "/static/media/VidyaBharti.a5d14c7f95bd6f42bd8a.png",
+    "static/media/home.png": "/static/media/home.e01911c3cff5e78cd089.png",
+    "static/media/rase.png": "/static/media/rase.9e0db3820c10b75d1273.png",
+    "static/media/AnnPrashan_slider.jpg": "/static/media/AnnPrashan_slider.d40704dd5473c7bd70aa.jpg",
+    "static/media/payment.png": "/static/media/payment.e0382b6c1002cff5d81c.png",
+    "static/media/job360.png": "/static/media/job360.e8d9ec960a36a6d2c46e.png",
+    "static/media/Tredul.png": "/static/media/Tredul.76e041c485376529b4da.png",
+    "static/media/swadeshi.png": "/static/media/swadeshi.ef0dec38d71f0ad3a875.png",
+    "static/media/alltemple.png": "/static/media/alltemple.760470c7a6ef9aaa227f.png",
+    "static/media/ganesh_slider.jpg": "/static/media/ganesh_slider.f12c8ae96302cfd61cbc.jpg",
+    "index.html": "/index.html",
+    "main.0a461457.css.map": "/static/css/main.0a461457.css.map",
+    "main.732bee43.js.map": "/static/js/main.732bee43.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0a461457.css",
+    "static/js/main.732bee43.js"
+  ]
+}
