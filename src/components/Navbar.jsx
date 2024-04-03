@@ -6,20 +6,22 @@ import {
   ExitToAppOutlined,
   ShoppingCartOutlined,
   ShoppingBasket,
-  WidgetsSharp,
 } from "@material-ui/icons";
-// import MenuIcon from '@mui/icons-material/Menu';
 import { getUserProducts } from "../service/productApi";
 import home from "../assets/home.png";
 import styled from "styled-components";
 import { IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import { FormattedMessage, IntlProvider } from 'react-intl';
+import pa from "../pa.json";
+import en from "../en.json";
+import hi from "../hi.json";
 
-
-<style>
-  @import
-  url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins:wght@300&family=Red+Rose&display=swap');
-</style>;
+const messages = {
+  en,
+  hi,
+  pa,
+};
 
 const Container = styled.div`
   color: #503C3C;
@@ -93,11 +95,6 @@ const ActionsContainer = styled.div`
   }
 `;
 
-const IconContainer = styled.div`
-  cursor: pointer;
-`;
-
-
 const Button = styled.button`
   background: transparent;
   border: none;
@@ -131,6 +128,7 @@ const Navbar = ({ length }) => {
   const navigate = useNavigate();
   const [len, setLength] = useState();
   const [data, setData] = useState();
+  const [locale, setLocale] = useState('en');
 
   useEffect(() => {
     getProductItem();
@@ -150,19 +148,20 @@ const Navbar = ({ length }) => {
     }
   
     try {
-
       const data = await getUserProducts(userData._id);
       setLength(data?.length);
     } catch (error) {
       console.error("Error fetching user products:", error);
     }
   };
-  
-  
 
   const getSetuser = () => {
     const user = localStorage.getItem("user");
     setData(user);
+  };
+
+  const changeLanguage = (newLocale) => {
+    setLocale(newLocale);
   };
 
   const handleDrawerOpen = () => {
@@ -198,7 +197,7 @@ const Navbar = ({ length }) => {
   };
 
   return (
-    <>
+    <IntlProvider locale={locale} messages={messages[locale]}>
       <Container>
         <Content>
           
@@ -217,17 +216,23 @@ const Navbar = ({ length }) => {
           </LogoContainer>
 
           <TitleContainer>
-            <StyledHeading>Pooja Wala</StyledHeading>
+            <StyledHeading>
+              <FormattedMessage id="title" />
+            </StyledHeading>
           </TitleContainer>
 
           <ActionsContainer>
+            <div>
+              <select onChange={(e) => changeLanguage(e.target.value)}>
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="pa">Punjabi</option>
+              </select>
+            </div>
             {data ? (
-              <IconContainer title="Your orders" >
-                <ShoppingBasket
-                  onClick={handleOrder}
-                  style={{ fontSize: "24px", color: "#503c3c" }}
-                />
-              </IconContainer>
+              <IconButton title="Your orders" onClick={handleOrder}>
+                <ShoppingBasket style={{ fontSize: "24px", color: "#503c3c" }} />
+              </IconButton>
             ) : null}
             <Button onClick={handleCart}>
               <div>
@@ -237,7 +242,6 @@ const Navbar = ({ length }) => {
                     overlap="rectangular"
                     color="primary"
                     title="Items In Cart"
-                    
                   >
                     <ShoppingCartOutlined style={{ fontSize: "24px", color: "#503c3c" }} />
                   </Badge>
@@ -247,7 +251,6 @@ const Navbar = ({ length }) => {
                     overlap="rectangular"
                     color="primary"
                     title="Items In Cart"
-                    
                   >
                     <ShoppingCartOutlined style={{ fontSize: "24px", color: "#503c3c" }} />
                   </Badge>
@@ -258,17 +261,17 @@ const Navbar = ({ length }) => {
               <>
                 <Link to="/register">
                   <Button>
-                    <BoldText>Register</BoldText>
+                    <BoldText><FormattedMessage id="register" /></BoldText>
                   </Button>
                 </Link>
                 <Link to="/login">
                   <Button>
-                    <BoldText>Sign In</BoldText>
+                    <BoldText><FormattedMessage id="signIn" /></BoldText>
                   </Button>
                 </Link>
                 <Link to="/Video">
                   <Button>
-                    <BoldText>Pooja Tutorials</BoldText>
+                    <BoldText><FormattedMessage id="poojaTutorials" /></BoldText>
                   </Button>
                 </Link>
               </>
@@ -290,14 +293,14 @@ const Navbar = ({ length }) => {
         style={{ zIndex: "999" }}
         onClick={handleDrawerClose}
       >
-         <div style={{ textAlign: "right", padding: "10px" }}>
-    <IconButton onClick={handleDrawerClose}>
-      <CloseIcon />
-    </IconButton>
-  </div>
+        <div style={{ textAlign: "right", padding: "10px" }}>
+          <IconButton onClick={handleDrawerClose}>
+            <CloseIcon />
+          </IconButton>
+        </div>
         <List>
           <ListItem button onClick={() => handleDrawerItemClick("/")}>
-            <ListItemText primary="Home" />
+            <ListItemText primary={<FormattedMessage id="home" />} />
           </ListItem>
           <ListItem button onClick={() => handleDrawerItemClick("/cart")}>
             <ListItem>
@@ -307,8 +310,7 @@ const Navbar = ({ length }) => {
                     badgeContent={len}
                     overlap="rectangular"
                     color="primary"
-                    title="Items In Cart"
-                    
+                    title={<FormattedMessage id="itemsInCart" />}
                   >
                     <ShoppingCartOutlined style={{ fontSize: "24px" }} />
                   </Badge>
@@ -317,8 +319,7 @@ const Navbar = ({ length }) => {
                     badgeContent={null}
                     overlap="rectangular"
                     color="primary"
-                    title="Items In Cart"
-                    
+                    title={<FormattedMessage id="itemsInCart" />}
                   >
                     <ShoppingCartOutlined style={{ fontSize: "24px" }} />
                   </Badge>
@@ -327,27 +328,32 @@ const Navbar = ({ length }) => {
             </ListItem>
           </ListItem>
           <ListItem button onClick={() => handleDrawerItemClick("/register")}>
-            <ListItemText primary="Register" />
+            <ListItemText primary={<FormattedMessage id="register" />} />
           </ListItem>
           <ListItem button onClick={() => handleDrawerItemClick("/login")}>
-            <ListItemText primary="Sign In" />
+            <ListItemText primary={<FormattedMessage id="signIn" />} />
           </ListItem>
-          
           <ListItem button onClick={() => handleDrawerItemClick("/Donation")}>
-            <ListItemText primary="Donation" />
+            <ListItemText primary={<FormattedMessage id="donation" />} />
           </ListItem>
-
           <ListItem button onClick={() => handleDrawerItemClick("/Video")}>
-            <ListItemText primary="Pooja Tutorials" />
+            <ListItemText primary={<FormattedMessage id="poojaTutorials" />} />
           </ListItem>
           {data && (
             <ListItem button onClick={handleClick}>
-              <ListItemText primary="Logout" />
+              <ListItemText primary={<FormattedMessage id="logout" />} />
             </ListItem>
           )}
+               <ListItem>
+              <select onChange={(e) => changeLanguage(e.target.value)}>
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="pa">Punjabi</option>
+              </select>
+            </ListItem>
         </List>
       </Drawer>
-    </>
+    </IntlProvider>
   );
 };
 
